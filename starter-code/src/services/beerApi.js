@@ -1,9 +1,10 @@
 import axios from "axios";
 
 const beerService = axios.create({
-  baseURL: "https://ironbeerapi.herokuapp.com/beers",
-  withCredentials: true,
-  crossDomain: true
+  // baseURL: "https://ironbeerapi.herokuapp.com/beers",
+  baseURL: "/beers",
+  //withCredentials: true,
+  // crossDomain: true
 });
 
 export const getAllBeers = () => {
