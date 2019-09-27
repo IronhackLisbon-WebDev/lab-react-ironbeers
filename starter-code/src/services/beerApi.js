@@ -1,15 +1,16 @@
 import axios from "axios";
 
-const pokemonService = axios.create({
-  baseURL: "https://pokeapi.co/api/v2"
+const beerService = axios.create({
+  baseURL: "https://ih-beer-api.herokuapp.com/beers"
 });
 
-export const list = () => {
+export const getAllBeers = () => {
   return new Promise((resolve, reject) => {
-    pokemonService
-      .get("/pokemon?limit=1000")
+    beerService
+      .get()
       .then(response => {
-        resolve(response.data.results);
+        console.log(response)
+        resolve(response.data);
       })
       .catch(error => {
         reject(error);
@@ -17,10 +18,36 @@ export const list = () => {
   });
 };
 
-export const load = id => {
+export const getOneBeer = id => {
   return new Promise((resolve, reject) => {
-    pokemonService
-      .get(`/pokemon/${id}`)
+    beerService
+      .get(`/${id}`)
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const getRandomBeer = () => {
+  return new Promise((resolve, reject) => {
+    beerService
+      .get(`/random`)
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const addNewBeer = body => {
+  return new Promise((resolve, reject) => {
+    beerService
+      .post(`/new`, body)
       .then(response => {
         resolve(response.data);
       })
