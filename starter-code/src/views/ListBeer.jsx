@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
 import { getAllBeers } from "../services/beerApi";
 
 export default class ListBeer extends Component {
@@ -11,38 +12,24 @@ export default class ListBeer extends Component {
   }
 
   componentDidMount() {
+    // --- API IN A SERVICES DIR ---
     getAllBeers()
       .then(beers => {
         this.setState({
-          beers: beers.data
+          beers: beers
         });
       })
       .catch(error => {
         console.log(error);
       });
 
-    // axios.get("https://ironbeerapi.herokuapp.com/beers/all").then(response => {
+      // --- API LOGIC IN THE SAME FILE ---
+    // axios.get("https://ih-beer-api.herokuapp.com/beers").then(response => {
     //   this.setState({
     //     beers: response.data
     //   });
     // });
   }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   const id = this.props.match.params.id;
-  //   console.log(prevProps.match, this.props.match);
-  //   if (prevProps.match.params.id !== id || !this.state.pokemon) {
-  //     load(id)
-  //       .then(pokemon => {
-  //         this.setState({
-  //           pokemon
-  //         });
-  //       })
-  //       .catch(error => {
-  //         console.log(error);
-  //       });
-  //   }
-  // }
 
   render() {
     if (!this.state.beers) return <div>Loading...</div>;

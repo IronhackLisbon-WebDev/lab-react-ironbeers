@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
-import axios from "axios";
+import React, { Component } from "react";
 import BeerCard from "../components/BeerCard";
-
+import { getRandomBeer } from "../services/beerApi";
 
 export default class RandomBeer extends Component {
   constructor(props) {
@@ -12,15 +11,14 @@ export default class RandomBeer extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get(
-        "https://ironbeerapi.herokuapp.com/beers/random"
-      )
-      .then(response => {
-        console.log(response)
+    getRandomBeer()
+      .then(beer => {
         this.setState({
-          beer: response.data
+          beer: beer
         });
+      })
+      .catch(error => {
+        console.log(error);
       });
   }
 
@@ -30,8 +28,8 @@ export default class RandomBeer extends Component {
     return (
       <div>
         <h1>A Random Beer</h1>
-        <BeerCard beer={this.state.beer}/>
+        <BeerCard beer={this.state.beer} />
       </div>
-    )
+    );
   }
 }

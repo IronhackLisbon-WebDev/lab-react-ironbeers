@@ -1,15 +1,16 @@
 import axios from "axios";
 
 const beerService = axios.create({
-  baseURL: "https://ih-beer-api.herokuapp.com/beers"
+  baseURL: "https://ironbeerapi.herokuapp.com/beers",
+  withCredentials: true,
+  crossDomain: true
 });
 
 export const getAllBeers = () => {
   return new Promise((resolve, reject) => {
     beerService
-      .get()
+      .get('/all')
       .then(response => {
-        console.log(response)
         resolve(response.data);
       })
       .catch(error => {
@@ -21,7 +22,7 @@ export const getAllBeers = () => {
 export const getOneBeer = id => {
   return new Promise((resolve, reject) => {
     beerService
-      .get(`/${id}`)
+      .get(`/single/${id}`)
       .then(response => {
         resolve(response.data);
       })
@@ -45,14 +46,16 @@ export const getRandomBeer = () => {
 };
 
 export const addNewBeer = body => {
+  console.log("BODY",body)
   return new Promise((resolve, reject) => {
     beerService
-      .post(`/new`, body)
+      .post('/new', body)
       .then(response => {
+        console.log("RESPONSE:",response)
         resolve(response.data);
       })
       .catch(error => {
-        reject(error);
+        reject("THE ERROR:",error);
       });
   });
 };

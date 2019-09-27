@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
 import BeerCard from "../components/BeerCard";
+import { getOneBeer } from "../services/beerApi";
 
 export default class SingleBeer extends Component {
   constructor(props) {
@@ -11,18 +11,14 @@ export default class SingleBeer extends Component {
   }
 
   componentDidMount() {
-    // We have a `this.props.match.params.id` because of the code in App.js
-    // <Route path="/beer-detail/:id" exact component={SingleBeer} />
-    console.log(this.props.match.params.id);
-    axios
-      .get(
-        "https://ironbeerapi.herokuapp.com/beers/single/" +
-          this.props.match.params.id
-      )
-      .then(response => {
+    getOneBeer(this.props.match.params.id)
+      .then(beer => {
         this.setState({
-          beer: response.data
+          beer: beer
         });
+      })
+      .catch(error => {
+        console.log(error);
       });
   }
 

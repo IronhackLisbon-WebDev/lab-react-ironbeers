@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch, Link } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import "./App.css";
 
 import MainNavbar from "./components/MainNavbar";
@@ -10,7 +10,6 @@ import SingleBeer from "./views/SingleBeer";
 import NewBeer from "./views/NewBeer";
 
 class App extends Component {
-  //Load API
   componentDidMount() {}
 
   render() {
